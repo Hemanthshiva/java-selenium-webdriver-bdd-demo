@@ -38,7 +38,7 @@ public class FileServiceTest {
     @Test
     public void testTotalFileCount() {
         List files = fileServices.findFiles(new File(filePath + "config"));
-        assertEquals("File count in the folder do not match the expected count", 11, files.size());
+        assertEquals("File count in the folder do not match the expected count", 10, files.size());
     }
 
 

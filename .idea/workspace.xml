@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a3b5375f-089f-4523-9381-6743bc4cbc12" name="Default" comment="" />
+    <list default="true" id="a3b5375f-089f-4523-9381-6743bc4cbc12" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/unittest/FileServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/unittest/FileServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/features-reports/CucumberTestReport.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/features-reports/CucumberTestReport.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-runner.TestRunner.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-runner.TestRunner.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-unittest.FileServiceTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-unittest.FileServiceTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/runner.TestRunner.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/runner.TestRunner.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/unittest.FileServiceTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/unittest.FileServiceTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/vehicleinfo-1.0-SNAPSHOT.jar" beforeDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -64,7 +75,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FileServicesImpl.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="FileServicesImpl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/services/FileServicesImpl.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="390">
@@ -72,6 +83,15 @@
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FileServiceTest.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/java/unittest/FileServiceTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="78">
+              <caret line="40" column="83" selection-start-line="40" selection-start-column="83" selection-end-line="40" selection-end-column="83" />
             </state>
           </provider>
         </entry>
@@ -94,6 +114,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -107,12 +130,12 @@
         <option value="$PROJECT_DIR$/src/test/java/steps/GetVehicleInfoSteps.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/services/FileServicesImpl.java" />
-        <option value="$PROJECT_DIR$/src/test/java/unittest/FileServiceTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/pages/VehicleInformationPage.java" />
         <option value="$PROJECT_DIR$/src/main/java/pages/VehicleInfoLandingPage.java" />
         <option value="$PROJECT_DIR$/src/main/java/pages/BasePage.java" />
         <option value="$PROJECT_DIR$/src/main/java/pages/VehicleEnquiryPage.java" />
         <option value="$PROJECT_DIR$/src/main/java/services/DriverServices.java" />
+        <option value="$PROJECT_DIR$/src/test/java/unittest/FileServiceTest.java" />
       </list>
     </option>
   </component>
@@ -147,6 +170,7 @@
       </profile-state>
     </entry>
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -217,6 +241,14 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vehicleinfo" type="b2602c69:ProjectViewProjectNode" />
+              <item name="HMRC-Test" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="vehicleinfo" type="b2602c69:ProjectViewProjectNode" />
@@ -490,9 +522,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="FileServiceTest_testFileName - 2018.06.24 at 16h 25m 25s.xml">
-      <configuration name="FileServiceTest.testFileName" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="FileServiceTest_testFileExtension - 2018.06.24 at 16h 37m 08s.xml">
       <configuration name="FileServiceTest.testFileExtension" configurationId="JUnit" />
     </history-entry>
@@ -520,6 +549,9 @@
     <history-entry file="FileServiceTest - 2018.06.24 at 16h 46m 32s.xml">
       <configuration name="FileServiceTest" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="FileServiceTest - 2018.06.24 at 17h 20m 51s.xml">
+      <configuration name="FileServiceTest" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="817" extended-state="0" />
@@ -533,12 +565,12 @@
       <window_info anchor="right" id="Capture Analysis" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.4486111" />
-      <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.4486111" />
+      <window_info anchor="bottom" id="Version Control" />
       <window_info anchor="bottom" id="Terminal" weight="0.32916668" />
       <window_info id="Capture Tool" />
       <window_info id="Designer" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24964234" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24964234" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" />
@@ -711,13 +743,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/unittest/FileServiceTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="26" column="17" selection-start-line="26" selection-start-column="17" selection-end-line="26" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/pages/VehicleInformationPage.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="347">
@@ -742,6 +767,13 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/unittest/FileServiceTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="78">
+          <caret line="40" column="83" selection-start-line="40" selection-start-column="83" selection-end-line="40" selection-end-column="83" />
         </state>
       </provider>
     </entry>
