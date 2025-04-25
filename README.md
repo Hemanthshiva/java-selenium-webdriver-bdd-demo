@@ -1,10 +1,11 @@
-# HMRC Vehicle Information Test Framework
+# Vehicle Information Checking Framework
 
-A BDD Web Automation framework for testing HMRC vehicle information services using Selenium WebDriver, Cucumber, and Spring.
+A robust BDD web automation framework for vehicle information services, leveraging Java, Selenium WebDriver, and Cucumber. Designed for scalability, maintainability, and detailed reporting.
+
 
 ## Project Overview
 
-This framework is designed to automate testing of vehicle information services, implementing Behavior Driven Development (BDD) principles using Cucumber with Java. It provides a robust, maintainable, and scalable test automation solution.
+This project is a Behavior Driven Development (BDD) web automation framework designed for testing vehicle information services. Built with Java, Selenium WebDriver, Cucumber, and Spring, it offers a scalable and maintainable solution for automated testing. Key features include Page Object Model design, cross-browser support, data-driven testing, and detailed reporting framework.
 
 ## Technology Stack
 
