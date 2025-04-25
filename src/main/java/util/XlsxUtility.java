@@ -1,7 +1,7 @@
 package util;
 
-import org.apache.poi.hssf.usermodel.HSSFDateUtil;
-import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -80,32 +80,29 @@ public class XlsxUtility {
 
             if (cell == null)
                 return "";
-            if (cell.getCellType() == Cell.CELL_TYPE_STRING)
+            
+            if (cell.getCellType() == CellType.STRING)
                 return cell.getStringCellValue();
-            else if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC || cell.getCellType() == Cell.CELL_TYPE_FORMULA) {
-
+            else if (cell.getCellType() == CellType.NUMERIC || cell.getCellType() == CellType.FORMULA) {
                 String cellText = String.valueOf(cell.getNumericCellValue());
-                if (HSSFDateUtil.isCellDateFormatted(cell)) {
-                    // format in form of M/D/YY
+                if (DateUtil.isCellDateFormatted(cell)) {
                     double d = cell.getNumericCellValue();
-
                     Calendar cal = Calendar.getInstance();
-                    cal.setTime(HSSFDateUtil.getJavaDate(d));
-                    cellText =
-                            (String.valueOf(cal.get(Calendar.YEAR))).substring(2);
+                    cal.setTime(DateUtil.getJavaDate(d));
+                    cellText = (String.valueOf(cal.get(Calendar.YEAR))).substring(2);
                     cellText = cal.get(Calendar.DAY_OF_MONTH) + "/" +
-                            cal.get(Calendar.MONTH) + 1 + "/" +
+                            (cal.get(Calendar.MONTH) + 1) + "/" +
                             cellText;
                 }
                 return cellText;
-            } else if (cell.getCellType() == Cell.CELL_TYPE_BLANK)
+            } else if (cell.getCellType() == CellType.BLANK)
                 return "";
             else
                 return String.valueOf(cell.getBooleanCellValue());
 
         } catch (Exception e) {
             e.printStackTrace();
-            LOGGER.info("row " + rowNum + " or column " + colName + " does not exist  in xls");
+            LOGGER.info("row " + rowNum + " or column " + colName + " does not exist in xls");
             return "row " + rowNum + " or column " + colName + " does not exist in xls";
         }
     }
@@ -129,32 +126,28 @@ public class XlsxUtility {
             if (cell == null)
                 return "";
 
-            if (cell.getCellType() == Cell.CELL_TYPE_STRING)
+            if (cell.getCellType() == CellType.STRING)
                 return cell.getStringCellValue();
-            else if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC || cell.getCellType() == Cell.CELL_TYPE_FORMULA) {
-
+            else if (cell.getCellType() == CellType.NUMERIC || cell.getCellType() == CellType.FORMULA) {
                 String cellText = String.valueOf(cell.getNumericCellValue());
-                if (HSSFDateUtil.isCellDateFormatted(cell)) {
+                if (DateUtil.isCellDateFormatted(cell)) {
                     double d = cell.getNumericCellValue();
-
                     Calendar cal = Calendar.getInstance();
-                    cal.setTime(HSSFDateUtil.getJavaDate(d));
-                    cellText =
-                            (String.valueOf(cal.get(Calendar.YEAR))).substring(2);
+                    cal.setTime(DateUtil.getJavaDate(d));
+                    cellText = (String.valueOf(cal.get(Calendar.YEAR))).substring(2);
                     cellText = cal.get(Calendar.MONTH) + 1 + "/" +
                             cal.get(Calendar.DAY_OF_MONTH) + "/" +
                             cellText;
                 }
                 return cellText;
-            } else if (cell.getCellType() == Cell.CELL_TYPE_BLANK)
+            } else if (cell.getCellType() == CellType.BLANK)
                 return "";
             else
                 return String.valueOf(cell.getBooleanCellValue());
         } catch (Exception e) {
             e.printStackTrace();
-            LOGGER.info("row " + rowNum + " or column " + colNum + " does not exist  in xls");
-            return "row " + rowNum + " or column " + colNum + " does not exist  in xls";
+            LOGGER.info("row " + rowNum + " or column " + colNum + " does not exist in xls");
+            return "row " + rowNum + " or column " + colNum + " does not exist in xls";
         }
     }
-
 }

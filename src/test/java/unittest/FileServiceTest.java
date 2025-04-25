@@ -16,35 +16,31 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.springframework.test.util.AssertionErrors.assertEquals;
-import static steps.TestSetUp.filePath;
-
+import static steps.TestSetUp.FILE_PATH;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@TestExecutionListeners({DependencyInjectionTestExecutionListener.class})
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class })
 @ContextConfiguration(classes = FileServicesImpl.class)
 public class FileServiceTest {
-
     File[] files;
     @Autowired
     FileServices fileServices;
 
     @Test
     public void testFileCountWithFileExtension() {
-        files = fileServices.getFilesByFileType(new File(filePath + "config"), "xlsx");
+        files = fileServices.getFilesByFileType(new File(FILE_PATH + "config"), "xlsx");
         assertEquals("File count in the folder with xlsx extension do not match the expected count", 3, files.length);
     }
 
-
     @Test
     public void testTotalFileCount() {
-        List files = fileServices.findFiles(new File(filePath + "config"));
-        assertEquals("File count in the folder do not match the expected count", 10, files.size());
+        List<File> foundFiles = fileServices.findFiles(new File(FILE_PATH + "config"));
+        assertEquals("File count in the folder do not match the expected count", 10, foundFiles.size());
     }
-
 
     @Test
     public void testFileName() {
-        files = fileServices.getFilesByFileType(new File(filePath + "config"), "xlsx");
+        files = fileServices.getFilesByFileType(new File(FILE_PATH + "config"), "xlsx");
 
         List<String> expectedFileNames = Arrays.asList("Book1", "Employee", "VehicleData");
         List<String> actualFileNames = new ArrayList<>();
@@ -54,20 +50,17 @@ public class FileServiceTest {
         assertEquals("File name do not match the expected", expectedFileNames, actualFileNames);
     }
 
-
     @Test
     public void testFileExtension() {
-        String extension = fileServices.getFileExtension(new File(filePath + "config/Data.xltx"));
+        String extension = fileServices.getFileExtension(new File(FILE_PATH + "config/Data.xltx"));
         assertEquals("File extension do not match the expected", "xltx", extension);
     }
 
-
     @Test
     public void testFileSizeInKB() {
-        int fileSize = Math.toIntExact(fileServices.getFileSizeInKB(new File(filePath + "config/VehicleData.xlsx")));
+        int fileSize = Math.toIntExact(fileServices.getFileSizeInKB(new File(FILE_PATH + "config/VehicleData.xlsx")));
         assertEquals("File size do not match the expected size", 9, fileSize);
 
     }
-
 
 }

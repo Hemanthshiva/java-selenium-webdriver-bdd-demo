@@ -56,8 +56,7 @@ public class FileServicesImpl implements FileServices {
 
     @Override
     public File[] getFilesByFileType(File filesDirectory, String fileType) {
-        File[] files = filesDirectory.listFiles((d, name) -> name.endsWith(fileType));
-        return files;
+        return filesDirectory.listFiles((d, name) -> name.endsWith(fileType));
     }
 
 

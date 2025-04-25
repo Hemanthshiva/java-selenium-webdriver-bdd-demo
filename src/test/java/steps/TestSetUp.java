@@ -1,41 +1,41 @@
 package steps;
 
-import cucumber.api.java.After;
-import cucumber.api.java.Before;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import services.DriverServices;
-
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 public class TestSetUp {
-
     private static final Logger LOGGER = Logger.getLogger(TestSetUp.class.getName());
     private static WebDriver driver;
-    public static final String filePath = System.getProperty("user.dir") + "/src/main/resources/";
+    public static final String FILE_PATH = System.getProperty("user.dir") + "/src/main/resources/";
 
     @Autowired
-    DriverServices driverServices;
+    private DriverServices driverServices;
 
-    @Before
+    @Before("@ui")
     public void setUp() {
-        driver = driverServices.create();
-        driver.manage().deleteAllCookies();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.manage().window().fullscreen();
-        LOGGER.info("Driver object is created");
+        if (driver == null) {
+            driver = driverServices.create();
+            LOGGER.info("Driver initialized for test");
+        }
     }
 
     public static WebDriver getDriverInstance() {
         return driver;
     }
 
-    @After
+    @After("@ui")
     public void tearDown() {
-        LOGGER.info("Quiting driver object");
-        if (driver != null)
-            driver.quit();
+        if (driver != null) {
+            LOGGER.info("Cleaning up driver instance");
+            try {
+                driver.quit();
+            } finally {
+                driver = null;
+            }
+        }
     }
-
 }
