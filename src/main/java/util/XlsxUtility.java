@@ -9,145 +9,136 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Component;
 
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.util.Calendar;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Component
 public class XlsxUtility {
 
     private static final Logger LOGGER = Logger.getLogger(XlsxUtility.class.getName());
+    private static final String ERROR_CELL_NOT_EXIST = " does not exist in xls";
+    private static final String ERROR_OR_COLUMN = " or column ";
 
-    public String path;
-    public FileInputStream fis = null;
-    public FileOutputStream fileOut = null;
     private XSSFWorkbook workbook = null;
     private XSSFSheet sheet = null;
     private XSSFRow row = null;
-    private XSSFCell cell = null;
 
     public XlsxUtility(String path) {
-        LOGGER.info("XLSX utility initialized with file path " + path);
-        this.path = path;
-        try {
-            fis = new FileInputStream(path);
+        try (FileInputStream fis = new FileInputStream(path)) {
             workbook = new XSSFWorkbook(fis);
             sheet = workbook.getSheetAt(0);
-            fis.close();
+            if (LOGGER.isLoggable(Level.INFO)) {
+                LOGGER.info(String.format("XLSX utility initialized with file path %s", path));
+            }
         } catch (Exception e) {
-            LOGGER.info("Error while initializing XLSX utility with message " + e.getLocalizedMessage());
+            if (LOGGER.isLoggable(Level.INFO)) {
+                LOGGER.info(String.format("Error while initializing XLSX utility with message %s",
+                        e.getLocalizedMessage()));
+            }
             e.printStackTrace();
         }
     }
 
-    // returns the row count in a sheet
     public int getRowCount(String sheetName) {
         int index = workbook.getSheetIndex(sheetName);
-        if (index == -1)
+        if (index == -1) {
             return 0;
-        else {
-            sheet = workbook.getSheetAt(index);
-            int number = sheet.getLastRowNum() + 1;
-            return number;
         }
+        sheet = workbook.getSheetAt(index);
+        return sheet.getLastRowNum() + 1;
     }
 
-    // returns the data from a cell
     public String getCellData(String sheetName, String colName, int rowNum) {
+        if (rowNum <= 0) {
+            return "";
+        }
+
+        int index = workbook.getSheetIndex(sheetName);
+        if (index == -1) {
+            return "";
+        }
+
+        int colNum = findColumnIndex(sheetName, colName);
+        if (colNum == -1) {
+            return "";
+        }
+
+        return getCellValue(sheetName, colNum, rowNum);
+    }
+
+    private int findColumnIndex(String sheetName, String colName) {
+        sheet = workbook.getSheetAt(workbook.getSheetIndex(sheetName));
+        row = sheet.getRow(0);
+
+        for (int i = 0; i < row.getLastCellNum(); i++) {
+            if (row.getCell(i).getStringCellValue().trim().equals(colName.trim())) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public String getCellData(String sheetName, int colNum, int rowNum) {
+        return getCellValue(sheetName, colNum, rowNum);
+    }
+
+    private String getCellValue(String sheetName, int colNum, int rowNum) {
         try {
-            if (rowNum <= 0)
+            if (rowNum <= 0) {
                 return "";
+            }
 
             int index = workbook.getSheetIndex(sheetName);
-            int col_Num = -1;
-            if (index == -1)
+            if (index == -1) {
                 return "";
-
-            sheet = workbook.getSheetAt(index);
-            row = sheet.getRow(0);
-            for (int i = 0; i < row.getLastCellNum(); i++) {
-                if (row.getCell(i).getStringCellValue().trim().equals(colName.trim()))
-                    col_Num = i;
             }
-            if (col_Num == -1)
-                return "";
 
             sheet = workbook.getSheetAt(index);
             row = sheet.getRow(rowNum - 1);
-            if (row == null)
+            if (row == null) {
                 return "";
-            cell = row.getCell(col_Num);
+            }
 
-            if (cell == null)
+            XSSFCell cell = row.getCell(colNum);
+            if (cell == null) {
                 return "";
-            
-            if (cell.getCellType() == CellType.STRING)
-                return cell.getStringCellValue();
-            else if (cell.getCellType() == CellType.NUMERIC || cell.getCellType() == CellType.FORMULA) {
-                String cellText = String.valueOf(cell.getNumericCellValue());
-                if (DateUtil.isCellDateFormatted(cell)) {
-                    double d = cell.getNumericCellValue();
-                    Calendar cal = Calendar.getInstance();
-                    cal.setTime(DateUtil.getJavaDate(d));
-                    cellText = (String.valueOf(cal.get(Calendar.YEAR))).substring(2);
-                    cellText = cal.get(Calendar.DAY_OF_MONTH) + "/" +
-                            (cal.get(Calendar.MONTH) + 1) + "/" +
-                            cellText;
-                }
-                return cellText;
-            } else if (cell.getCellType() == CellType.BLANK)
-                return "";
-            else
-                return String.valueOf(cell.getBooleanCellValue());
+            }
 
+            return extractCellValue(cell);
         } catch (Exception e) {
             e.printStackTrace();
-            LOGGER.info("row " + rowNum + " or column " + colName + " does not exist in xls");
-            return "row " + rowNum + " or column " + colName + " does not exist in xls";
+            String errorMessage = String.format("row %d%s%d%s",
+                    rowNum, ERROR_OR_COLUMN, colNum, ERROR_CELL_NOT_EXIST);
+            if (LOGGER.isLoggable(Level.INFO)) {
+                LOGGER.info(errorMessage);
+            }
+            return errorMessage;
         }
     }
 
-    // returns the data from a cell
-    public String getCellData(String sheetName, int colNum, int rowNum) {
-        try {
-            if (rowNum <= 0)
-                return "";
-
-            int index = workbook.getSheetIndex(sheetName);
-
-            if (index == -1)
-                return "";
-
-            sheet = workbook.getSheetAt(index);
-            row = sheet.getRow(rowNum - 1);
-            if (row == null)
-                return "";
-            cell = row.getCell(colNum);
-            if (cell == null)
-                return "";
-
-            if (cell.getCellType() == CellType.STRING)
-                return cell.getStringCellValue();
-            else if (cell.getCellType() == CellType.NUMERIC || cell.getCellType() == CellType.FORMULA) {
-                String cellText = String.valueOf(cell.getNumericCellValue());
-                if (DateUtil.isCellDateFormatted(cell)) {
-                    double d = cell.getNumericCellValue();
-                    Calendar cal = Calendar.getInstance();
-                    cal.setTime(DateUtil.getJavaDate(d));
-                    cellText = (String.valueOf(cal.get(Calendar.YEAR))).substring(2);
-                    cellText = cal.get(Calendar.MONTH) + 1 + "/" +
-                            cal.get(Calendar.DAY_OF_MONTH) + "/" +
-                            cellText;
-                }
-                return cellText;
-            } else if (cell.getCellType() == CellType.BLANK)
-                return "";
-            else
-                return String.valueOf(cell.getBooleanCellValue());
-        } catch (Exception e) {
-            e.printStackTrace();
-            LOGGER.info("row " + rowNum + " or column " + colNum + " does not exist in xls");
-            return "row " + rowNum + " or column " + colNum + " does not exist in xls";
+    private String extractCellValue(XSSFCell cell) {
+        if (cell.getCellType() == CellType.STRING) {
+            return cell.getStringCellValue();
+        } else if (cell.getCellType() == CellType.NUMERIC || cell.getCellType() == CellType.FORMULA) {
+            return formatNumericCell(cell);
+        } else if (cell.getCellType() == CellType.BLANK) {
+            return "";
+        } else {
+            return String.valueOf(cell.getBooleanCellValue());
         }
+    }
+
+    private String formatNumericCell(XSSFCell cell) {
+        String cellText = String.valueOf(cell.getNumericCellValue());
+        if (DateUtil.isCellDateFormatted(cell)) {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(DateUtil.getJavaDate(cell.getNumericCellValue()));
+            return String.format("%d/%d/%s",
+                    cal.get(Calendar.DAY_OF_MONTH),
+                    cal.get(Calendar.MONTH) + 1,
+                    String.valueOf(cal.get(Calendar.YEAR)).substring(2));
+        }
+        return cellText;
     }
 }
